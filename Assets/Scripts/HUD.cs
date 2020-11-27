@@ -29,7 +29,7 @@ public class HUD : MonoBehaviour
 	void Update()
 	{
 		gameLength -= Time.deltaTime;
-		if (gameLength <= 0)
+		if (gameLength <= 1) //so timer will show zero
         {
 			
 			finishGame();
