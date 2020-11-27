@@ -9,25 +9,29 @@ public class Spin : MonoBehaviour
     private Vector3 zeroVector;
     public PlayerControls pilot;
     public float collisionBounce = 0.8f;
+    public Vector3 offsetFromPilot;
     // Start is called before the first frame update
     void Start()
     {
         zeroVector = Vector3.zero;
-        pilot = this.transform.parent.GetComponent<PlayerControls>(); ;
+        offsetFromPilot = new Vector3(0f, 0f, -10f);
+        pilot = this.transform.parent.GetComponent<PlayerControls>();
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Rotate(Vector3.back * spinSpeed * Time.deltaTime);
-        transform.localPosition = zeroVector;
+        transform.localPosition = offsetFromPilot;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Grass"))
         {
-            //Destroy(other.gameObject);
+            Destroy(other.gameObject);
             Debug.Log("Collected " + ++pilot.score + " points");
+            //create a new grass to collect
+            other.gameObject.GetComponent<GoldenGrassBehavior>().creatNewGrass(other.gameObject);
         }
     }
     private void OnCollisionEnter(Collision other)
@@ -41,4 +45,5 @@ public class Spin : MonoBehaviour
             pilot.player.velocity = Vector3.Reflect(pilot.player.velocity, other.contacts[0].normal) * collisionBounce;
         }
     }
+
 }
