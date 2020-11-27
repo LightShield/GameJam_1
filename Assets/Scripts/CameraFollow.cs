@@ -11,9 +11,7 @@ public class CameraFollow: MonoBehaviour {
     [SerializeField]
     private Vector3 offsetPosition;
 
-    [SerializeField]
-    private Space offsetPositionSpace = Space.Self;
-
+  
     //late update - to update AFTER movment of player
     private void LateUpdate()
     {

@@ -2,20 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour
+public class PlayerControls : AnyPlayerBehavior
 {
-    public float movmentSpeed = 1f;
-    public float rotateSpeed = 100f;
-    public Rigidbody player;
-    public int score;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        player = gameObject.GetComponent<Rigidbody>();
-        score = 0;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -34,14 +22,5 @@ public class PlayerControls : MonoBehaviour
             player.AddForce(transform.up * movmentSpeed);
         }
         //slowing down  - using drag
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag.Equals("Grass"))
-        {
-            //Destroy(other.gameObject);
-            Debug.Log("Collected " + ++score + " points");
-        }
     }
 }
