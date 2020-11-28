@@ -15,6 +15,8 @@ public class Spin : MonoBehaviour
     public AnyPlayerBehavior pilot;
     public float collisionBounce = 0.8f;
     public float playerBumpingEnergyFactor = 1.2f;
+    public Sounds sfx;
+    public AudioSource ownVoice;
     
 
     //optimization helper (Vector3.zero creates a new vector each time for some reason)
@@ -40,6 +42,8 @@ public class Spin : MonoBehaviour
             //collect
             Destroy(other.gameObject);
             Debug.Log("Collected " + ++pilot.score + " points");
+            //collection sfx
+            ownVoice.Play();
             //create a new grass to collect
             GoldenGrassBehavior grass = other.gameObject.GetComponent<GoldenGrassBehavior>();
             grass.creatNewGrass(other.gameObject);
@@ -53,10 +57,22 @@ public class Spin : MonoBehaviour
         {
             //using reflection, as suggested by omer @discord
             pilot.player.velocity = Vector3.Reflect(pilot.player.velocity, other.contacts[0].normal) * collisionBounce;
+            sfx.playBumpBoundary();
         }
         else if (other.gameObject.tag.Equals("Enemy"))
         {
+            //sound effects
             Debug.Log("enemy/player bump");
+            sfx.playMoo();
+            sfx.playBaa();
+            sfx.playBumpShips();
+
+            //cosmetic (particle) effects
+            ParticleSystem bump = Instantiate(bumpEffect, other.contacts[0].point, Quaternion.identity);
+            bump.transform.parent = bumpEffect.transform.parent;
+            bump.Play();
+
+            //logical code -
             //calculate reflection by giving both of the ships half of the total speed:
             Rigidbody enemyBody = other.gameObject.transform.parent.GetComponent<Rigidbody>();
             Vector3 connectedVelocity = enemyBody.velocity + pilot.player.velocity * playerBumpingEnergyFactor / 2;
@@ -66,9 +82,7 @@ public class Spin : MonoBehaviour
             enemyBody.velocity = -pilot.player.velocity;
             other.gameObject.transform.parent.GetComponent<EnemyBehavior>().correctAfterCollision();
          }
-        ParticleSystem bump = Instantiate(bumpEffect, other.contacts[0].point, Quaternion.identity);
-        bump.transform.parent = bumpEffect.transform.parent;
-        bump.Play();
+
     }
 
 }

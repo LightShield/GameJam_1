@@ -12,6 +12,7 @@ public class HUD : MonoBehaviour
 	private Rect rect;
 	//endgame flag (to draw end game stats on screen
 	private bool gameOver = false;
+	public Sounds sfx;
 
 	void Start()
     {
@@ -44,7 +45,7 @@ public class HUD : MonoBehaviour
 		//score
 		GUI.Label(rect, "Player Score = " + playerScript.score + "\n" + "Enemy Score = " + enemyScript.score, style);
         if (gameOver)
-        {
+        { // end game stats & effects
 			int w = Screen.width, h = Screen.height;
 			Rect endRect = new Rect(0, h / 4, w, h * 2 / 100);
 			style.alignment = TextAnchor.MiddleCenter;
