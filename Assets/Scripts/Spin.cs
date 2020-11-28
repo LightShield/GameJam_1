@@ -49,7 +49,6 @@ public class Spin : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-
         if (other.gameObject.tag.Equals("Boundary"))
         {
             //using reflection, as suggested by omer @discord
@@ -67,6 +66,9 @@ public class Spin : MonoBehaviour
             enemyBody.velocity = -pilot.player.velocity;
             other.gameObject.transform.parent.GetComponent<EnemyBehavior>().correctAfterCollision();
          }
+        ParticleSystem bump = Instantiate(bumpEffect, other.contacts[0].point, Quaternion.identity);
+        bump.transform.parent = bumpEffect.transform.parent;
+        bump.Play();
     }
 
 }
