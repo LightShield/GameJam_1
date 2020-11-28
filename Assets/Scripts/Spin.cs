@@ -8,6 +8,8 @@ public class Spin : MonoBehaviour
     public Vector3 offsetFromPilot;
     public float spinSpeed = 100f;
     public float minRotateVelocity = 1f;
+    public ParticleSystem playerCollectionEffect;
+    public ParticleSystem bumpEffect;
 
     [Header("Collisions & Behaviors Settings")]
     public AnyPlayerBehavior pilot;
@@ -39,7 +41,9 @@ public class Spin : MonoBehaviour
             Destroy(other.gameObject);
             Debug.Log("Collected " + ++pilot.score + " points");
             //create a new grass to collect
-            other.gameObject.GetComponent<GoldenGrassBehavior>().creatNewGrass(other.gameObject);
+            GoldenGrassBehavior grass = other.gameObject.GetComponent<GoldenGrassBehavior>();
+            grass.creatNewGrass(other.gameObject);
+            playerCollectionEffect.Play();
             pilot.OnTriggerEnter(other);
         }
     }
@@ -64,4 +68,5 @@ public class Spin : MonoBehaviour
             other.gameObject.transform.parent.GetComponent<EnemyBehavior>().correctAfterCollision();
          }
     }
+
 }

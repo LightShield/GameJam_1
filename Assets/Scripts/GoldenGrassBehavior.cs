@@ -13,6 +13,8 @@ public class GoldenGrassBehavior : MonoBehaviour
 
     public GameObject floor; //used to calculate random location generation
     public float mapTolerance = 2f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +39,6 @@ public class GoldenGrassBehavior : MonoBehaviour
 
     private Vector3 createRandomInBoundsLocation()
     {
-        
         float x = Random.Range(-10f + mapTolerance, 10f - mapTolerance);
         float z = Random.Range(-10f + mapTolerance, 10f - mapTolerance);
         return new Vector3(x, 1f, z);
