@@ -39975,7 +39975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 695669425be05d74cb0039bae394d292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetFromPilot: {x: 0, y: 0, z: 0}
+  offsetFromPilot: {x: 0, y: 0, z: -9.5}
   spinSpeed: 100
   minRotateVelocity: 1
   playerCollectionEffect: {fileID: 200199085}
@@ -40276,7 +40276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 307ba658227fda04d86559bb6a41de6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLength: 3
+  gameLength: 60
   sfx: {fileID: 79361354}
 --- !u!1 &1375548501
 GameObject:
